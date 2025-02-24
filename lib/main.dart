@@ -49,6 +49,7 @@ height: windowHeight,
 class Counter with ChangeNotifier {
 int value = 0;
 
+// incr or decr using value here since you cant change the var inside stateless
 void increment() {
 if (value <= 99) {
 value += 1;
@@ -61,12 +62,47 @@ value -= 1;
 notifyListeners();
 }
 }
+
+String getMessage() {
+    if (value <= 12) {
+      return "You're a child!";
+    } else if (value <= 19) {
+      return "Teenager time!";
+    } else if (value <= 30) {
+      return "You're a young adult!";
+    } else if (value <= 50) {
+      return "You're an adult now!";
+    } else {
+      return "Golden years!";
+    }
+  }
+
+  Color getBackgroundColor() {
+    if (value <= 12) {
+      return Colors.lightBlue[100]!;
+    } else if (value <= 19) {
+      return Colors.lightGreen[100]!;
+    } else if (value <= 30) {
+      return Colors.yellow[100]!;
+    } else if (value <= 50) {
+      return Colors.orange[100]!;
+    } else {
+      return Colors.grey[100]!;
+    }
+  }
 }
 
 class MyApp extends StatelessWidget {
 const MyApp({super.key});
+
+
+
 @override
 Widget build(BuildContext context) {
+
+return new Container(
+      decoration: new BoxDecoration(color: Colors.red),
+
 return MaterialApp(
 title: 'Flutter Demo',
 theme: ThemeData(
@@ -82,15 +118,19 @@ const MyHomePage({super.key});
 @override
 Widget build(BuildContext context) {
 return Scaffold(
+backgroundColor: getBackgroundColor(),
 appBar: AppBar(
 title: const Text('Age Counter'),
 ),
 body: Center(
 child: Column(
 mainAxisAlignment: MainAxisAlignment.center,
+
 children: [
 //const Text('I am this many years old:'),
-// ^^ redundant code
+// ^^ redundant code, remnant of counter program
+
+
 
 // Consumer looks for an ancestor Provider widget
 // and retrieves its model (Counter, in this case).
@@ -147,6 +187,7 @@ counter.increment();
 tooltip: 'Increment',
 child: const Icon(Icons.add),
 ),
+);
 );
 }
 }
