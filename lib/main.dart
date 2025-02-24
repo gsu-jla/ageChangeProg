@@ -100,14 +100,15 @@ const MyApp({super.key});
 @override
 Widget build(BuildContext context) {
 
-return new Container(
-      decoration: new BoxDecoration(color: Colors.red),
+//return new Container(
+//      decoration: new BoxDecoration(color: Colors.red),
 
 return MaterialApp(
 title: 'Flutter Demo',
 theme: ThemeData(
 primarySwatch: Colors.blue,
 useMaterial3: true,
+//decoration: new BoxDecoration(color: Colors.red),
 ),
 home: const MyHomePage(),
 );
@@ -118,7 +119,7 @@ const MyHomePage({super.key});
 @override
 Widget build(BuildContext context) {
 return Scaffold(
-backgroundColor: getBackgroundColor(),
+//backgroundColor: getBackgroundColor(),
 appBar: AppBar(
 title: const Text('Age Counter'),
 ),
@@ -138,9 +139,11 @@ children: [
 // rebuilds if the model is updated.
 Consumer<Counter>(
 builder: (context, counter, child) => Text(
-'I am ${counter.value} years old',
+'I am ${counter.value} years old \n' + '${counter.getMessage()}',
+
 style: Theme.of(context).textTheme.headlineMedium,
-// color:
+//selectionColor: counter.getBackgroundColor(),
+//color:
 ),
 // ^added text outside varible display call to match desired output
 ),
@@ -157,6 +160,7 @@ ElevatedButton(  //decr counter
   onPressed: () {
     var counter = context.read<Counter>();
     counter.decrement();
+    counter.getBackgroundColor();
   },
   child: Text('Decrease Age'),
 ),
@@ -188,6 +192,6 @@ tooltip: 'Increment',
 child: const Icon(Icons.add),
 ),
 );
-);
+//);
 }
 }
