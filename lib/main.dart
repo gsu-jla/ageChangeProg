@@ -48,11 +48,21 @@ height: windowHeight,
 /// _not_ depend on Provider.
 class Counter with ChangeNotifier {
 int value = 0;
+
 void increment() {
+if (value <= 99) {
 value += 1;
 notifyListeners();
 }
 }
+void decrement() {
+if (value >= 1) {
+value -= 1;
+notifyListeners();
+}
+}
+}
+
 class MyApp extends StatelessWidget {
 const MyApp({super.key});
 @override
@@ -90,10 +100,27 @@ Consumer<Counter>(
 builder: (context, counter, child) => Text(
 'I am ${counter.value} years old',
 style: Theme.of(context).textTheme.headlineMedium,
-// color: 
+// color:
 ),
 // ^added text outside varible display call to match desired output
 ),
+
+ElevatedButton(  //incr counter
+  onPressed: () {
+    var counter = context.read<Counter>();
+    counter.increment();
+  },
+  child: Text('Increase Age'),
+),
+
+ElevatedButton(  //decr counter
+  onPressed: () {
+    var counter = context.read<Counter>();
+    counter.decrement();
+  },
+  child: Text('Decrease Age'),
+),
+
 ],
 ),
 ),
